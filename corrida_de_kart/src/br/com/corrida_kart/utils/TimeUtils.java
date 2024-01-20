@@ -16,10 +16,8 @@ public class TimeUtils {
                     .plusSeconds(time2.getSecond())
                     .plusNanos(time2.getNano());
 
-            System.out.println("Input String 1: " + time1);
-            System.out.println("Input String 2: " + time2);
-            System.out.println("Sum of times: " + sum);
             return sum.toString();
+
         } else {
             System.out.println("Invalid input format.");
             return "";

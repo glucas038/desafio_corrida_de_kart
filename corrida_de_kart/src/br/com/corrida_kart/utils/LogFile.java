@@ -55,6 +55,7 @@ public class LogFile {
 
             br.close();
             return laps;
+
         } catch (IOException var14) {
             System.err.println("IOException: " + var14.getMessage());
             throw new RuntimeException(var14);
