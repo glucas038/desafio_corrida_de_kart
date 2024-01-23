@@ -18,54 +18,34 @@ public class Lap {
     }
 
     public String getTime() {
-        return this.time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+        return time;
     }
 
     public int getLapNumber() {
-        return this.lapNumber;
-    }
-
-    public void setLapNumber(int lapNumber) {
-        this.lapNumber = lapNumber;
+        return lapNumber;
     }
 
     public String getDriverCode() {
-        return this.driverCode;
-    }
-
-    public void setDriverCode(String driverCode) {
-        this.driverCode = driverCode;
+        return driverCode;
     }
 
     public String getDriverName() {
-        return this.driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
+        return driverName;
     }
 
     public String getLapTime() {
-        return this.lapTime;
-    }
-
-    public void setLapTime(String lapTime) {
-        this.lapTime = lapTime;
+        return lapTime;
     }
 
     public double getAverageSpeed() {
-        return this.averageSpeed;
+        return averageSpeed;
     }
 
-    public void setAverageSpeed(double averageSpeed) {
-        this.averageSpeed = averageSpeed;
-    }
-
+    @Override
     public String toString() {
-        return "\ntime='" + this.time + "', driverCode='" + this.driverCode + "', driverName='" + this.driverName + "', lapNumber=" + this.lapNumber + ", lapTime='" + this.lapTime + "', averageSpeed=" + this.averageSpeed;
+        return String.format(
+                "\ntime='%s', driverCode='%s', driverName='%s', lapNumber=%d, lapTime='%s', averageSpeed=%.2f",
+                time, driverCode, driverName, lapNumber, lapTime, averageSpeed
+        );
     }
 }

@@ -1,57 +1,40 @@
 package br.com.corrida_kart.model;
 
 public class RaceResult {
-    private int finishingPosition;
-    private String driverCode;
     private String driverName;
-    private int lapsCompleted;
-    private String totalRaceTime;
+    private int bestLap;
+    private String bestLapTime;
 
-    public RaceResult(int finishingPosition, String driverCode, String driverName, int lapsCompleted, String totalRaceTime) {
-        this.finishingPosition = finishingPosition;
-        this.driverCode = driverCode;
+    public RaceResult() {
+        this.driverName = "";
+        this.bestLap = 0;
+        this.bestLapTime = "";
+    }
+
+    public int getBestLap() {
+        return bestLap;
+    }
+
+
+    @Override
+    public String toString() {
+        return  "VOLTA MAIS RÁPIDA DA CORRIDA ->  " +
+                "  Nome do piloto: " + this.driverName +
+                "  Volta mais rápida: " + this.bestLap +
+                "  Tempo da volta mais rápida: " + this.bestLapTime;
+    }
+
+    public boolean isFasterLap(String bestLapTime) {
+        if(this.bestLapTime.compareTo(bestLapTime) > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public void updateBestLap(String driverName, int bestLap, String bestLapTime) {
         this.driverName = driverName;
-        this.lapsCompleted = lapsCompleted;
-        this.totalRaceTime = totalRaceTime;
+        this.bestLap = bestLap;
+        this.bestLapTime = bestLapTime;
     }
 
-    public int getFinishingPosition() {
-        return this.finishingPosition;
-    }
-
-    public void setFinishingPosition(int finishingPosition) {
-        this.finishingPosition = finishingPosition;
-    }
-
-    public String getDriverCode() {
-        return this.driverCode;
-    }
-
-    public void setDriverCode(String driverCode) {
-        this.driverCode = driverCode;
-    }
-
-    public String getDriverName() {
-        return this.driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-
-    public int getLapsCompleted() {
-        return this.lapsCompleted;
-    }
-
-    public void setLapsCompleted(int lapsCompleted) {
-        this.lapsCompleted = lapsCompleted;
-    }
-
-    public String getTotalRaceTime() {
-        return this.totalRaceTime;
-    }
-
-    public void setTotalRaceTime(String totalRaceTime) {
-        this.totalRaceTime = totalRaceTime;
-    }
 }
