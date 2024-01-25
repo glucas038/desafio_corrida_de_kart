@@ -1,6 +1,7 @@
-package br.com.corrida_kart.model;
+package br.com.corrida_kart.model.domain;
 
 public class RaceResult {
+
     private String driverName;
     private int bestLap;
     private String bestLapTime;
@@ -18,17 +19,13 @@ public class RaceResult {
 
     @Override
     public String toString() {
-        return  "VOLTA MAIS RÁPIDA DA CORRIDA ->  " +
-                "  Nome do piloto: " + this.driverName +
-                "  Volta mais rápida: " + this.bestLap +
-                "  Tempo da volta mais rápida: " + this.bestLapTime;
+        return String.format("VOLTA MAIS RÁPIDA DA CORRIDA\n" +
+                        "Nome do piloto: %s  Volta mais rápida: %d  Tempo da volta mais rápida: %s",
+                driverName, bestLap, bestLapTime);
     }
 
-    public boolean isFasterLap(String bestLapTime) {
-        if(this.bestLapTime.compareTo(bestLapTime) > 0){
-            return true;
-        }
-        return false;
+    public boolean isFasterLap(String lapTime) {
+        return this.bestLapTime.compareTo(lapTime) > 0;
     }
 
     public void updateBestLap(String driverName, int bestLap, String bestLapTime) {

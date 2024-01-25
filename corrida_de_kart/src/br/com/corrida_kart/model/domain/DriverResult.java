@@ -1,19 +1,19 @@
-package br.com.corrida_kart.model;
+package br.com.corrida_kart.model.domain;
 
 import br.com.corrida_kart.utils.TimeUtils;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class DriverResult {
+    private static final String DEFAULT_TIME = "00:00:00.000";
+    private static final int DEFAULT_BEST_LAP = 0;
     private int finishingPosition;
-    private String driverCode;
-    private String driverName;
+    private final String driverCode;
+    private final String driverName;
     private int lapsCompleted;
     private String totalRaceTime;
     private int bestLap;
     private String bestLapTime;
-    private BigDecimal averageSpeed;
+    private double averageSpeed;
     private String arrivalTime;
     private String timeBehindWinner;
 
@@ -24,11 +24,11 @@ public class DriverResult {
         this.driverName = driverName;
         this.lapsCompleted = lapsCompleted;
         this.totalRaceTime = totalRaceTime;
-        this.bestLap = 0;
-        this.bestLapTime = "00:00:00,000";
-        this.averageSpeed = BigDecimal.valueOf(0.0);
-        this.arrivalTime = "00:00:00,000";
-        this.timeBehindWinner = "00:00:00,000";
+        this.bestLap = DEFAULT_BEST_LAP;
+        this.bestLapTime = DEFAULT_TIME;
+        this.averageSpeed = 0;
+        this.arrivalTime = DEFAULT_TIME;
+        this.timeBehindWinner = DEFAULT_TIME;
     }
 
     public int getFinishingPosition() {
@@ -42,7 +42,6 @@ public class DriverResult {
     public String getDriverName() {
         return driverName;
     }
-
 
     public int getLapsCompleted() {
         return lapsCompleted;
@@ -76,11 +75,11 @@ public class DriverResult {
         this.bestLapTime = bestLapTime;
     }
 
-    public BigDecimal getAverageSpeed() {
+    public double getAverageSpeed() {
         return averageSpeed;
     }
 
-    public void setAverageSpeed(BigDecimal averageSpeed) {
+    public void setAverageSpeed(double averageSpeed) {
         this.averageSpeed = averageSpeed;
     }
 
@@ -92,34 +91,47 @@ public class DriverResult {
         this.arrivalTime = arrivalTime;
     }
 
-
     public void calculateAverageSpeed() {
-        BigDecimal result = this.averageSpeed.divide(BigDecimal.valueOf(lapsCompleted), 3, RoundingMode.HALF_UP);
-        setAverageSpeed(result);
+        if (lapsCompleted > 0) {
+            double result = averageSpeed / lapsCompleted;
+            setAverageSpeed(result);
+        }
     }
 
-    public boolean isFasterLap(String bestLapTime) {
-        if(this.bestLapTime.compareTo(bestLapTime) > 0){
-            return true;
-        }
-        return false;
+    public boolean isFasterLap(String lapTime) {
+        return this.bestLapTime.compareTo(lapTime) > 0;
     }
 
     public void updateTimeBehindWinner(String firstTime) {
         this.timeBehindWinner = TimeUtils.subtractTimes(this.arrivalTime, firstTime);
     }
 
+    public String result() {
+        return String.format("Posição Chegada: %d  " +
+                        "Código Piloto: %s  " +
+                        "Nome Piloto: %s  " +
+                        "Qtde Voltas Completadas: %d  " +
+                        "Tempo Total de Prova: %s",
+                finishingPosition, driverCode, driverName, lapsCompleted, totalRaceTime);
+    }
+
+    public String bonusResult() {
+        return String.format("Posição Chegada: %d  " +
+                        "Nome Piloto: %s  " +
+                        "Volta mais rápida: %d  " +
+                        "Tempo volta mais rápida: %s  " +
+                        "Velocidade média: %.3f  " +
+                        "Tempo atrás: %s",
+                finishingPosition, driverName, bestLap, bestLapTime,
+                averageSpeed, timeBehindWinner);
+    }
+
     @Override
     public String toString() {
-        return  "Posição: " + this.finishingPosition +
-                "  Código Piloto: " + this.driverCode +
-                "  Nome Piloto: " + this.driverName +
-                "  Voltas Completadas: " + this.lapsCompleted +
-                "  Tempo Total de Prova: " + this.totalRaceTime +
-                "  Volta mais rápida: " + this.bestLap +
-                "  Tempo volta mais rápida: " + this.bestLapTime +
-                "  Velocidade média: " + this.averageSpeed +
-                "  Tempo atrás: " + this.timeBehindWinner;
+        return String.format("Posição: %d  Código Piloto: %s  Nome Piloto: %s  Voltas Completadas: %d  " +
+                        "Tempo Total de Prova: %s  Volta mais rápida: %d  Tempo volta mais rápida: %s  " +
+                        "Velocidade média: %.3f  Tempo atrás: %s",
+                finishingPosition, driverCode, driverName, lapsCompleted, totalRaceTime, bestLap, bestLapTime, averageSpeed, timeBehindWinner);
     }
 
 }

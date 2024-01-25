@@ -1,18 +1,18 @@
-package br.com.corrida_kart.model;
+package br.com.corrida_kart.model.domain;
 
 public class Lap {
-    private String time;
-    private int lapNumber;
-    private String driverCode;
-    private String driverName;
-    private String lapTime;
-    private double averageSpeed;
+    private final String time;
+    private final int lapNumber;
+    private final String driverCode;
+    private final String driverName;
+    private final String lapTime;
+    private final double averageSpeed;
 
     public Lap(String time, String driverCode, String driverName, int lapNumber, String lapTime, double averageSpeed) {
         this.time = time;
-        this.lapNumber = lapNumber;
         this.driverCode = driverCode;
         this.driverName = driverName;
+        this.lapNumber = lapNumber;
         this.lapTime = lapTime;
         this.averageSpeed = averageSpeed;
     }
@@ -43,9 +43,8 @@ public class Lap {
 
     @Override
     public String toString() {
-        return String.format(
-                "\ntime='%s', driverCode='%s', driverName='%s', lapNumber=%d, lapTime='%s', averageSpeed=%.2f",
-                time, driverCode, driverName, lapNumber, lapTime, averageSpeed
-        );
+        return String.format("Lap{time='%s', driverCode='%s', driverName='%s', lapNumber=%d, lapTime='%s', averageSpeed=%.2f}",
+                time, driverCode, driverName, lapNumber, lapTime, averageSpeed);
     }
+
 }

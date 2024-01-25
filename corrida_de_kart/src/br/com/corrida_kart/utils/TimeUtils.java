@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 public class TimeUtils {
 
+    private static final String INVALID_INPUT_FORMAT = "Formato de entrada inválido.";
+
     public static String sumTimes(String timeString1, String timeString2) {
         LocalTime time1 = parseTime(timeString1);
         LocalTime time2 = parseTime(timeString2);
@@ -17,10 +19,8 @@ public class TimeUtils {
                     .plusNanos(time2.getNano());
 
             return sum.toString();
-
         } else {
-            System.out.println("Invalid input format.");
-            return "";
+            throw new IllegalArgumentException(INVALID_INPUT_FORMAT);
         }
     }
 
@@ -35,15 +35,13 @@ public class TimeUtils {
                     .minusNanos(time2.getNano());
 
             return difference.toString();
-
         } else {
-            System.out.println("Invalid input format.");
-            return "";
+            throw new IllegalArgumentException(INVALID_INPUT_FORMAT);
         }
     }
 
     public static LocalTime parseTime(String input) {
-        input = input.replace(",",".");
+        input = input.replace(",", ".");
         Pattern pattern = Pattern.compile("(?:(\\d+):)?(\\d+)(?::(\\d+))?(?:\\.(\\d+))?");
         Matcher matcher = pattern.matcher(input);
 
@@ -55,7 +53,7 @@ public class TimeUtils {
 
             return LocalTime.of(hours, minutes, seconds).plusNanos(nanos);
         } else {
-            return null;
+            throw new IllegalArgumentException(INVALID_INPUT_FORMAT);
         }
     }
 }
